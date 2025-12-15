@@ -44,7 +44,7 @@ function getErrorMessage(error: PermissionError, gitEmail: string): string {
     switch (error.code) {
         case "GRACE_EXPIRED":
             return (
-                `This app's 5-day trial period has ended. ` +
+                `This app's trial period has ended. ` +
                 `Register it with your Ninja subscription to continue assigning object IDs.`
             );
         case "USER_NOT_AUTHORIZED":

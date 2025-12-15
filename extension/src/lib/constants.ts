@@ -77,7 +77,7 @@ export const DOCUMENTS = {
     APP_POOLS: "app-pools",
 };
 
-export const TELEMETRY_HOST_NAME = "alninja-telemetry.azurewebsites.net";
+export const TELEMETRY_HOST_NAME = "telemetry.alid.ninja";
 
 export const API_RESULT = {
     NOT_SENT: Symbol("NOT_SENT"),

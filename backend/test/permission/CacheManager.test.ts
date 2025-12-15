@@ -508,7 +508,7 @@ describe("CacheManager", () => {
     // =========================================================================
     describe("addOrphanedApp", () => {
         it("should write to both cache and master blobs", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("new-app", freeUntil);
@@ -563,7 +563,7 @@ describe("CacheManager", () => {
         // =====================================================================
 
         it("should write master apps.json as an ARRAY, not an object", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("new-app", freeUntil);
@@ -585,7 +585,7 @@ describe("CacheManager", () => {
         });
 
         it("should preserve existing entries in master apps.json array", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("new-app", freeUntil);
@@ -610,7 +610,7 @@ describe("CacheManager", () => {
         });
 
         it("should NOT add duplicate entry if app already exists in master", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("existing-app", freeUntil);
@@ -632,7 +632,7 @@ describe("CacheManager", () => {
         });
 
         it("should handle null/undefined master blob gracefully", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("new-app", freeUntil);
@@ -652,7 +652,7 @@ describe("CacheManager", () => {
         });
 
         it("should write cache apps.json as an object with apps property", async () => {
-            const freeUntil = Date.now() + 5 * 24 * 60 * 60 * 1000;
+            const freeUntil = Date.now() + 15 * 24 * 60 * 60 * 1000;
             mockBlobInstance.optimisticUpdate.mockResolvedValue({});
 
             await CacheManager.addOrphanedApp("new-app", freeUntil);

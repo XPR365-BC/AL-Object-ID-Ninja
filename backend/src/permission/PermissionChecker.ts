@@ -224,13 +224,13 @@ export const PermissionChecker = {
                 };
             }
 
-            // Calculate grace period (7 days from first seen)
-            const GRACE_PERIOD_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+            // Calculate grace period (15 days from first seen)
+            const GRACE_PERIOD_MS = 15 * 24 * 60 * 60 * 1000; // 15 days
             const now = Date.now();
             const gracePeriodRemaining = GRACE_PERIOD_MS - (now - firstSeenTimestamp);
 
             if (gracePeriodRemaining > 0) {
-                // User within 7-day grace period - allow with warning
+                // User within 15-day grace period - allow with warning
                 return {
                     allowed: true,
                     warning: {

@@ -52,7 +52,7 @@ describe("PermissionChecker", () => {
             const call = mockCacheManager.addOrphanedApp.mock.calls[0];
             const freeUntil = call[1];
 
-            // freeUntil should be now + GRACE_PERIOD_MS (5 days)
+            // freeUntil should be now + GRACE_PERIOD_MS (15 days)
             expect(freeUntil).toBeGreaterThanOrEqual(before + GRACE_PERIOD_MS);
             expect(freeUntil).toBeLessThanOrEqual(after + GRACE_PERIOD_MS);
         });
@@ -98,7 +98,7 @@ describe("PermissionChecker", () => {
     // =========================================================================
     describe("Guard 3: Orphaned app", () => {
         it("should always return warning with timeRemaining for valid grace period", async () => {
-            const freeUntil = Date.now() + GRACE_PERIOD_MS; // Full 5 days remaining
+            const freeUntil = Date.now() + GRACE_PERIOD_MS; // Full 15 days remaining
             const cache: AppsCache = {
                 updatedAt: Date.now(),
                 apps: {
@@ -413,7 +413,7 @@ describe("PermissionChecker", () => {
             mockUnknownUserLogger.mockRestore();
         });
 
-        it("should allow access with warning when user first seen (within 7-day grace)", async () => {
+        it("should allow access with warning when user first seen (within 15-day grace)", async () => {
             const now = Date.now();
             mockUnknownUserLogger.mockResolvedValue(now); // First seen = now
 
@@ -450,12 +450,12 @@ describe("PermissionChecker", () => {
                 // Should have ~4 days remaining
                 const daysRemaining = result.warning.timeRemaining! / (24 * 60 * 60 * 1000);
                 expect(daysRemaining).toBeGreaterThan(3.9);
-                expect(daysRemaining).toBeLessThan(4.1);
+                expect(daysRemaining).toBeLessThan(12.1);
             }
         });
 
-        it("should deny access when user seen 8 days ago (grace expired)", async () => {
-            const eightDaysAgo = Date.now() - (8 * 24 * 60 * 60 * 1000);
+        it("should deny access when user seen 18 days ago (grace expired)", async () => {
+            const eightDaysAgo = Date.now() - (18 * 24 * 60 * 60 * 1000);
             mockUnknownUserLogger.mockResolvedValue(eightDaysAgo); // First seen = 8 days ago
 
             mockCacheManager.getAppsCache.mockResolvedValue(cache);
@@ -751,9 +751,9 @@ describe("PermissionChecker", () => {
         beforeEach(() => {
             // Mock UnknownUserLogger.logAttempt to return a timestamp beyond grace period
             const UnknownUserLoggerModule = require("../../src/permission/UnknownUserLogger");
-            const eightDaysAgo = Date.now() - (8 * 24 * 60 * 60 * 1000);
+            const eighteenDaysAgo = Date.now() - (18 * 24 * 60 * 60 * 1000);
             mockUnknownUserLogger = jest.spyOn(UnknownUserLoggerModule.UnknownUserLogger, "logAttempt")
-                .mockResolvedValue(eightDaysAgo); // Grace expired
+                .mockResolvedValue(eighteenDaysAgo); // Grace expired
         });
 
         afterEach(() => {

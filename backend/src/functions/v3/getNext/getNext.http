@@ -1,7 +1,9 @@
 POST http://localhost:7071/api/v3/getNext/13fa81fd716a0d68cd6feb06e1e9a50ad2dba990ff7343cfbd6ec9f027e87970
+Ninja-App-Id: 13fa81fd716a0d68cd6feb06e1e9a50ad2dba990ff7343cfbd6ec9f027e87970
 Content-Type: application/json
 
 {
+  "appId": "13fa81fd716a0d68cd6feb06e1e9a50ad2dba990ff7343cfbd6ec9f027e87970",
   "type": "codeunit",
   "ranges": [
     {

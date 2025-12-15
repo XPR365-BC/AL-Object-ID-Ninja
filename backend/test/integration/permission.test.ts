@@ -204,7 +204,7 @@ describe("Permission Integration Tests", () => {
         });
 
         it("should always return warning with timeRemaining for orphaned app", async () => {
-            const freeUntil = Date.now() + GRACE_PERIOD_MS; // Full 5 days remaining
+            const freeUntil = Date.now() + GRACE_PERIOD_MS; // Full 15 days remaining
             mockCacheManager.getAppsCache.mockResolvedValue({
                 updatedAt: Date.now(),
                 apps: {

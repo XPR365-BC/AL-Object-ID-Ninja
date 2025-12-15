@@ -183,8 +183,8 @@ export interface PermissionInfo {
 // Constants
 // =============================================================================
 
-/** Grace period duration in milliseconds (5 days) */
-export const GRACE_PERIOD_MS = 5 * 24 * 60 * 60 * 1000;
+/** Grace period duration in milliseconds (15 days) */
+export const GRACE_PERIOD_MS = 15 * 24 * 60 * 60 * 1000;
 
 /** Default TTL for apps and org-members caches (15 minutes) */
 export const DEFAULT_CACHE_TTL_MS = 15 * 60 * 1000;

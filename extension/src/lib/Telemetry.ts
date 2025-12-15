@@ -47,10 +47,7 @@ export class Telemetry {
         }
         if (!this._userSha) {
             const now = Date.now();
-            this._context!.globalState.update(
-                TELEMETRY_USER_SHA,
-                (this._userSha = getSha256(`${now + Math.random() * now}.${now}`))
-            );
+            this._context!.globalState.update(TELEMETRY_USER_SHA, (this._userSha = getSha256(`${now + Math.random() * now}.${now}`)));
         }
         return this._userSha;
     }
@@ -65,23 +62,52 @@ export class Telemetry {
     }
 
     public log(event: TelemetryEventType, app?: ALApp, context?: any): void {
-        Backend.telemetry(app?.hash, this.userSha, event, context);
+        Backend.telemetry(app?.hash, this.userSha, event, {
+            ...context,
+            ninja: EXTENSION_VERSION,
+            vscode: version,
+            ownEndpoints: !Config.instance.isDefaultBackEndConfiguration,
+        });
     }
 
     public logAppCommand(app: ALApp, command: NinjaCommand, context: {} = {}): void {
-        Backend.telemetry(app.hash, this.userSha, TelemetryEventType.Command, { command, ...context });
+        Backend.telemetry(app.hash, this.userSha, TelemetryEventType.Command, {
+            command,
+            ...context,
+            ninja: EXTENSION_VERSION,
+            vscode: version,
+            ownEndpoints: !Config.instance.isDefaultBackEndConfiguration,
+        });
     }
 
     public logCommand(command: NinjaCommand, context: {} = {}): void {
-        Backend.telemetry(undefined, this.userSha, TelemetryEventType.Command, { command, ...context });
+        Backend.telemetry(undefined, this.userSha, TelemetryEventType.Command, {
+            command,
+            ...context,
+            ninja: EXTENSION_VERSION,
+            vscode: version,
+            ownEndpoints: !Config.instance.isDefaultBackEndConfiguration,
+        });
     }
 
     public logNextNo(app: ALApp, type: string, commit: boolean, conflictPrevented?: boolean) {
-        Backend.telemetry(app.hash, this.userSha, TelemetryEventType.NextId, { type, commit, conflictPrevented });
+        Backend.telemetry(app.hash, this.userSha, TelemetryEventType.NextId, {
+            type,
+            commit,
+            conflictPrevented,
+            ninja: EXTENSION_VERSION,
+            vscode: version,
+            ownEndpoints: !Config.instance.isDefaultBackEndConfiguration,
+        });
     }
 
     public logLearnMore(document: string) {
-        Backend.telemetry(undefined, this.userSha, TelemetryEventType.LearnMore, { document });
+        Backend.telemetry(undefined, this.userSha, TelemetryEventType.LearnMore, {
+            document,
+            ninja: EXTENSION_VERSION,
+            vscode: version,
+            ownEndpoints: !Config.instance.isDefaultBackEndConfiguration,
+        });
     }
 
     public logOncePerSession(event: TelemetryEventType, app?: ALApp, context?: any): void {
